@@ -1,29 +1,32 @@
 import { createFileRoute } from "@tanstack/react-router";
-import {
-  Scissors,
-  Baby,
-  BadgeCheck,
-  HeartHandshake,
-  CalendarClock,
-  Car,
-  Sparkles,
-  Award,
-  ArrowLeft,
-  Info,
-} from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Info, MapPin, Phone } from "lucide-react";
 
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { Reveal } from "@/components/Reveal";
 import { Depoimentos } from "@/components/Depoimentos";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
+import { WhatsAppIcon } from "@/components/WhatsAppIcon";
+import { BandeiraCuba } from "@/components/BandeiraCuba";
+import { MaleconHavana } from "@/components/MaleconHavana";
+import { FaixaDivisoria } from "@/components/FaixaDivisoria";
+import { EstrelaSolitaria } from "@/components/EstrelaSolitaria";
+import { TabelaPrecos } from "@/components/TabelaPrecos";
 import { Tag } from "@/components/Tag";
-import { WHATSAPP_EXIBICAO, WHATSAPP_LINK } from "@/lib/contato";
+import {
+  AVALIACAO_NOTA,
+  AVALIACAO_TOTAL,
+  ENDERECO,
+  MAPS_LINK,
+  TELEFONE_LINK,
+  WHATSAPP_EXIBICAO,
+  WHATSAPP_LINK,
+} from "@/lib/contato";
 import logo from "@/assets/logo-barbearia-cuba-libre.png";
 import equipe from "@/assets/barbeiros-proprietarios-barbearia-cuba-libre.jpg";
 import corte from "@/assets/corte-masculino-degrade-barbearia-cuba-libre-campinas.jpg";
 import barba from "@/assets/barba-navalha-barbearia-cuba-libre-campinas.jpg";
 import infantil from "@/assets/corte-infantil-com-risco-barbearia-cuba-libre-campinas.jpg";
+import azulejoMarinho from "@/assets/padrao-azulejo-cubano-marinho-barbearia-cuba-libre.jpg";
 
 export const Route = createFileRoute("/guia")({
   head: () => ({
@@ -40,63 +43,48 @@ export const Route = createFileRoute("/guia")({
   component: Guia,
 });
 
+const NOTA_EXIBICAO = String(AVALIACAO_NOTA).replace(".", ",");
+
+const BOTAO_WHATSAPP =
+  "inline-flex items-center justify-center gap-2 rounded-full bg-whatsapp px-7 py-3.5 font-accent text-whatsapp-foreground shadow-[var(--shadow-lift)]";
+
+// Espelho do conteúdo da página inicial (src/routes/index.tsx).
 const servicos = [
   {
-    icon: Scissors,
     titulo: "Corte masculino adulto",
     texto:
       "Do clássico ao degradê moderno, feito com técnica atualizada e acabamento caprichado para valorizar o seu rosto e o seu estilo.",
     imagem: corte,
-    alt: "Barbeiro finalizando corte degradê masculino na Barbearia Cuba Libre",
+    cta: "Quero esse corte",
   },
   {
-    icon: Baby,
     titulo: "Corte infantil",
     texto:
       "Paciência, simpatia e ambiente tranquilo para a criançada. O resultado é um corte bonito e uma experiência leve para pais e filhos.",
     imagem: infantil,
-    alt: "Menino sorrindo durante corte infantil na Barbearia Cuba Libre",
+    cta: "Agendar para meu filho",
   },
   {
-    icon: Sparkles,
     titulo: "Barba e acabamento",
     texto:
       "Desenho, alinhamento e cuidado com a pele. A barba sai simétrica, macia e no formato que combina com o seu visual.",
     imagem: barba,
-    alt: "Barbeiro alinhando a barba de cliente com navalha na Barbearia Cuba Libre",
+    cta: "Marcar minha barba",
   },
 ];
 
 const diferenciais = [
   {
-    icon: HeartHandshake,
     titulo: "Atendimento personalizado",
     texto: "Conversamos antes de cortar: entendemos o visual que você quer e explicamos o que funciona.",
   },
   {
-    icon: Award,
-    titulo: "+10 anos de profissão",
-    texto: "Dois barbeiros cubanos com mais de uma década de experiência e formação técnica.",
-  },
-  {
-    icon: BadgeCheck,
-    titulo: "Preço claro, sem surpresa",
-    texto: "Cortes a partir de R$50, com o valor combinado antes de começar. Você paga pelo que foi acordado.",
-  },
-  {
-    icon: CalendarClock,
     titulo: "Hora marcada ou chegada",
     texto: "Agende pelo WhatsApp ou apareça: atendemos das duas formas, respeitando o seu tempo.",
   },
   {
-    icon: Car,
     titulo: "Estacionamento próprio",
     texto: "Vaga para carro no local, no bairro Botafogo, sem estresse para chegar e sair.",
-  },
-  {
-    icon: Sparkles,
-    titulo: "Ambiente acolhedor",
-    texto: "O calor cubano no atendimento: conversa boa, respeito e um espaço onde você se sente em casa.",
   },
 ];
 
@@ -107,10 +95,12 @@ function Guia() {
       <div className="sticky top-0 z-[60] bg-red-600 text-white shadow-lg">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3 sm:px-6">
           <p className="flex items-center gap-2 text-sm font-semibold">
-            <Info size={18} aria-hidden />
-            Modo guia: cada placa vermelha mostra o nome do elemento — use esse nome ao pedir
-            alterações. O botão redondo no canto inferior direito é o{" "}
-            <strong>botão flutuante do WhatsApp</strong>.
+            <Info size={18} className="shrink-0" aria-hidden />
+            <span>
+              Modo guia: cada placa vermelha mostra o nome do elemento — use esse nome ao pedir
+              alterações. Passe o mouse sobre a placa para ver a explicação. O botão verde no canto
+              inferior direito é o <strong>botão flutuante do WhatsApp</strong>.
+            </span>
           </p>
           <a href="/" className="ml-auto flex items-center gap-1.5 text-sm font-bold underline">
             <ArrowLeft size={16} aria-hidden />
@@ -121,363 +111,416 @@ function Guia() {
 
       <Tag
         nome="barra de navegação (navbar)"
-        descricao="A faixa fixa no topo com logotipo, links do menu e botão."
+        descricao="A faixa fixa no topo: logo pequena, nome da barbearia, links do menu e botão Agendar. No celular os links viram o menu de três tracinhos (hambúrguer)."
       >
         <Navbar />
       </Tag>
 
       <main>
-        {/* Hero */}
-        <section id="inicio" className="surface-navy scroll-mt-20">
+        <div className="pt-6">
           <Tag
-            nome='seção "hero"'
-            descricao="A seção de abertura do site, a primeira coisa que o visitante vê."
+            nome="faixa divisória"
+            descricao="A faixa fina com 'Tradição cubana em Campinas', a estrela e 'Desde 2020'."
+          >
+            <FaixaDivisoria />
+          </Tag>
+        </div>
+
+        {/* Hero */}
+        <section className="surface-navy">
+          <Tag
+            nome='seção "hero" (abertura)'
+            descricao="A seção de abertura, a primeira coisa que o visitante vê."
             className="mx-auto max-w-6xl"
           >
-            <div className="grid items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2 md:py-24">
+            <div className="grid items-center gap-12 px-4 pb-20 pt-14 sm:px-6 md:grid-cols-[1fr_1.1fr] md:py-24">
               <div>
-                <Tag nome="chamada pequena (eyebrow)" descricao="O textinho em caixa alta acima do título.">
-                  <p className="eyebrow">Barbearia em Campinas · desde 2020</p>
-                </Tag>
-                <Tag
-                  nome="título principal (H1)"
-                  descricao="O título maior da página — só existe um por página."
-                  className="mt-3"
-                >
-                  <h1 className="text-4xl font-extrabold leading-tight text-on-navy sm:text-5xl">
-                    Cortes modernos que valorizam sua imagem
+                <Tag nome="título principal (H1)" descricao="O maior título da página — só existe um por página.">
+                  <h1 className="text-4xl leading-[1.05] text-balance text-on-navy sm:text-5xl lg:text-6xl">
+                    Corte de respeito, tradição cubana
                   </h1>
                 </Tag>
-                <Tag nome="subtítulo" descricao="A frase de apoio logo abaixo do título." className="mt-4">
+                <Tag nome="subtítulo" descricao="A frase de apoio logo abaixo do título." className="mt-6">
                   <p className="max-w-md text-lg text-on-navy-muted">
-                    Estilo e tradição cubana em Campinas.
+                    De Havana para Campinas, com coração. Aqui quem corta é quem fundou a casa: Luis
+                    e Bryan. Marque seu horário e sinta a diferença no primeiro corte.
                   </p>
                 </Tag>
                 <div className="mt-8 flex flex-wrap items-center gap-6">
-                  <Tag
-                    nome="botão de ação (CTA)"
-                    descricao="O botão principal, que leva ao WhatsApp."
-                  >
-                    <a
-                      href={WHATSAPP_LINK}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block rounded-full bg-secondary px-7 py-3.5 font-accent font-bold text-secondary-foreground shadow-[var(--shadow-lift)] transition-transform hover:scale-[1.03]"
-                    >
-                      Agende seu horário agora
+                  <Tag nome="botão principal (CTA)" descricao="O botão verde que abre o WhatsApp.">
+                    <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className={BOTAO_WHATSAPP}>
+                      <WhatsAppIcon size={18} />
+                      Agendar pelo WhatsApp
                     </a>
                   </Tag>
-                  <Tag nome="botão secundário" descricao="O botão de contorno, com ação alternativa.">
+                  <Tag nome="botão secundário" descricao="O botão de contorno que desce até a tabela de preços.">
                     <a
-                      href="#servicos"
-                      className="inline-block rounded-full border border-on-navy/40 px-7 py-3.5 font-accent font-semibold text-on-navy transition-colors hover:border-on-navy"
+                      href="#precos"
+                      className="inline-block rounded-full border border-on-navy/40 px-7 py-3.5 font-accent text-on-navy"
                     >
-                      Ver serviços
+                      Ver preços
                     </a>
                   </Tag>
                 </div>
                 <Tag
-                  nome="linha de informações"
-                  descricao="O texto pequeno com horários e preço."
-                  className="mt-6"
+                  nome="prova de avaliações"
+                  descricao="As estrelas douradas com a nota e o total de avaliações; clicar abre a ficha no Google."
+                  className="mt-8 inline-block"
                 >
-                  <p className="text-sm text-on-navy-muted">
-                    Seg a sex 8h30–20h · Sáb 8h30–18h · Cortes a partir de R$50
-                  </p>
+                  <a
+                    href={MAPS_LINK}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex flex-wrap items-center gap-x-3 gap-y-1 py-1"
+                  >
+                    <span className="flex gap-1 text-gold" aria-hidden="true">
+                      {Array.from({ length: 5 }).map((_, k) => (
+                        <EstrelaSolitaria key={k} className="w-4" />
+                      ))}
+                    </span>
+                    <span className="font-accent text-lg font-bold leading-none">{NOTA_EXIBICAO}</span>
+                    <span className="text-sm text-on-navy-muted underline underline-offset-4">
+                      {AVALIACAO_TOTAL} avaliações no Google
+                      <ArrowUpRight size={14} className="ml-0.5 inline-block" aria-hidden />
+                    </span>
+                  </a>
                 </Tag>
               </div>
 
-              <Tag
-                nome="imagem do hero"
-                descricao="A imagem grande ao lado do título (hoje é o logotipo)."
-              >
-                <img
-                  src={logo}
-                  alt="Logo Barbearia Cuba Libre"
-                  width={1024}
-                  height={1024}
-                  className="mx-auto w-64 drop-shadow-2xl sm:w-80 md:w-[22rem]"
-                />
-              </Tag>
+              <div className="relative mx-auto w-full max-w-xl pb-6 md:pb-0">
+                <Tag nome="foto dos donos" descricao="A foto grande da abertura, com os dois barbeiros.">
+                  <img
+                    src={equipe}
+                    alt="Luis e Bryan, barbeiros cubanos e donos da Barbearia Cuba Libre, no salão em Campinas"
+                    width={1200}
+                    height={896}
+                    className="aspect-[4/3] w-full rounded-3xl object-cover shadow-[var(--shadow-lift)]"
+                  />
+                </Tag>
+                <div className="absolute -bottom-2 left-4 md:-bottom-8 md:-left-8">
+                  <Tag nome="selo da logo" descricao="A logo redonda sobreposta ao canto da foto.">
+                    <img
+                      src={logo}
+                      alt=""
+                      width={909}
+                      height={1001}
+                      className="aspect-square w-24 rounded-full bg-on-navy object-contain p-1.5 shadow-[var(--shadow-lift)] sm:w-28"
+                    />
+                  </Tag>
+                </div>
+              </div>
             </div>
           </Tag>
         </section>
 
         {/* Sobre */}
-        <section id="sobre" className="scroll-mt-20 bg-background">
+        <section id="sobre" className="relative overflow-hidden bg-background">
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.15]"
+            style={{ backgroundImage: `url(${azulejoMarinho})`, backgroundSize: "220px 220px" }}
+            aria-hidden="true"
+          />
           <Tag
             nome='seção "Sobre nós"'
-            descricao="A seção que conta a história da barbearia."
-            className="mx-auto max-w-6xl"
+            descricao="A seção que conta a história da barbearia. O fundo estampado é o padrão de azulejo azul."
+            className="relative z-10 mx-auto max-w-6xl"
           >
-            <div className="grid items-center gap-12 px-4 py-20 sm:px-6 md:grid-cols-2">
-              <Reveal>
-                <Tag nome="chamada pequena (eyebrow)" descricao="O rótulo da seção.">
-                  <p className="eyebrow">Sobre nós</p>
+            <div className="grid items-center gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[1fr_1.15fr] lg:gap-14">
+              <div>
+                <Tag nome="bandeira de Cuba" descricao="O emblema da bandeira acima do título." className="inline-block">
+                  <BandeiraCuba className="h-8 w-12 rounded shadow-[var(--shadow-card)]" />
                 </Tag>
-                <Tag
-                  nome="título da seção (H2)"
-                  descricao="O título que abre cada seção."
-                  className="mt-3"
-                >
-                  <h2 className="text-3xl text-primary sm:text-4xl">
+                <Tag nome="título da seção (H2)" descricao="O título que abre cada seção." className="mt-6">
+                  <h2 className="text-4xl text-balance text-primary sm:text-5xl">
                     Uma barbearia cubana no coração de Campinas
                   </h2>
                 </Tag>
                 <Tag
-                  nome="parágrafos de texto"
-                  descricao="Os blocos de texto corrido da seção."
-                  className="mt-5"
-                >
-                  <div className="space-y-4 text-base leading-relaxed text-muted-foreground">
-                    <p>
-                      Somos profissionais da área há mais de dez anos. Cubanos de origem, escolhemos
-                      o Brasil para viver e fundamos a Barbearia Cuba Libre em 2020, no bairro
-                      Botafogo.
-                    </p>
-                    <p>
-                      Somos dois barbeiros que acreditam que um bom corte começa por ouvir o
-                      cliente. Cada atendimento é pensado para valorizar as suas melhores
-                      características — seja no corte clássico, no degradê moderno ou no desenho da
-                      barba.
-                    </p>
-                    <p>
-                      Nossa missão é promover um atendimento de qualidade para construir uma relação
-                      de confiança e proximidade. Nunca comprometemos a qualidade técnica nem a
-                      ética profissional por questões comerciais.
-                    </p>
-                  </div>
-                </Tag>
-                <Tag
-                  nome="cartões de estatísticas"
-                  descricao="Os três quadrinhos com números de destaque."
+                  nome="faixa de números"
+                  descricao="A tarja azul-marinho com +10 anos, desde 2020 e 2 barbeiros."
                   className="mt-8"
                 >
-                  <dl className="grid grid-cols-3 gap-4">
+                  <dl className="surface-navy grid grid-cols-3 divide-x divide-on-navy/15 rounded-xl p-4">
                     {[
-                      ["+10", "anos de profissão"],
-                      ["2020", "na sua vizinhança"],
-                      ["2", "barbeiros dedicados"],
-                    ].map(([n, l]) => (
-                      <div key={l} className="rounded-xl border border-border bg-card p-4 text-center">
-                        <dt className="font-accent text-2xl font-extrabold text-secondary">{n}</dt>
-                        <dd className="mt-1 text-xs uppercase tracking-wide text-muted-foreground">
+                      ["", "+10", "anos de profissão"],
+                      ["Desde", "2020", "na sua vizinhança"],
+                      ["", "2", "barbeiros dedicados"],
+                    ].map(([prefixo, n, l]) => (
+                      <div key={l} className="px-2 text-center">
+                        <dt className="font-accent text-2xl leading-tight">
+                          <span className="block font-body text-[0.65rem] uppercase tracking-wide text-on-navy/50">
+                            {prefixo || " "}
+                          </span>
+                          {n}
+                        </dt>
+                        <dd className="mt-1 text-[0.7rem] uppercase leading-snug sm:text-xs sm:tracking-wide">
                           {l}
                         </dd>
                       </div>
                     ))}
                   </dl>
                 </Tag>
-              </Reveal>
+              </div>
 
-              <Reveal delay={120}>
-                <Tag nome="foto da equipe" descricao="A foto grande da seção Sobre.">
-                  <img
-                    src={equipe}
-                    alt="Proprietários da Barbearia Cuba Libre no salão, prontos para atender"
-                    loading="lazy"
-                    width={1280}
-                    height={960}
-                    className="w-full rounded-3xl object-cover shadow-[var(--shadow-lift)]"
-                  />
-                </Tag>
-              </Reveal>
+              <Tag
+                nome="bloco de texto"
+                descricao="Os três parágrafos da história, sobre um fundo branco para facilitar a leitura."
+              >
+                <div className="space-y-4 rounded-2xl bg-background/90 p-6 text-lg leading-relaxed text-muted-foreground sm:p-8">
+                  <p>
+                    Somos profissionais da área há mais de dez anos. Cubanos de origem, escolhemos o
+                    Brasil para viver e fundamos a Barbearia Cuba Libre em 2020, no bairro Botafogo.
+                  </p>
+                  <p>
+                    Somos dois barbeiros que acreditam que um bom corte começa por ouvir o cliente. A
+                    partir daí, cuidamos de cada etapa até você sair com o corte que imaginou.
+                  </p>
+                  <p>
+                    Nossa missão é construir uma relação de confiança e proximidade com cada cliente.
+                    Depois de tantos anos no ofício, o que mais nos alegra é ver alguém se olhar no
+                    espelho satisfeito — e é isso que as avaliações que recebemos no Google mostram,
+                    uma a uma.
+                  </p>
+                </div>
+              </Tag>
             </div>
           </Tag>
         </section>
 
         {/* Serviços */}
-        <section id="servicos" className="scroll-mt-20 bg-muted">
+        <section id="servicos" className="surface-navy">
           <Tag
             nome='seção "Serviços"'
-            descricao="A seção com os três serviços oferecidos."
+            descricao="A seção com os três serviços: um card grande em destaque e dois menores ao lado."
             className="mx-auto max-w-6xl"
           >
             <div className="px-4 py-20 sm:px-6">
-              <Reveal className="max-w-2xl">
-                <Tag nome="chamada pequena (eyebrow)" descricao="O rótulo da seção.">
-                  <p className="eyebrow">Serviços</p>
-                </Tag>
-                <Tag nome="título da seção (H2)" descricao="O título da seção de serviços." className="mt-3">
-                  <h2 className="text-3xl text-primary sm:text-4xl">
+              <div className="max-w-2xl">
+                <Tag nome="título da seção (H2)" descricao="O título da seção de serviços.">
+                  <h2 className="text-4xl text-balance text-on-navy sm:text-5xl">
                     Cuidado masculino do começo ao acabamento
                   </h2>
                 </Tag>
-                <Tag nome="texto de apoio" descricao="O parágrafo abaixo do título." className="mt-4">
-                  <p className="text-muted-foreground">
-                    Serviço de qualidade com preço justo e transparente — você sabe exatamente o que
-                    vai receber antes de sentar na cadeira.
+                <Tag nome="texto de apoio" descricao="O parágrafo abaixo do título." className="mt-5">
+                  <p className="text-on-navy-muted">
+                    Preço justo e técnica afiada — você sabe exatamente o que vai receber antes de
+                    sentar na cadeira.
                   </p>
                 </Tag>
-              </Reveal>
+              </div>
 
-              <div className="mt-12 grid gap-8 md:grid-cols-3">
-                {servicos.map((s, k) => (
-                  <Reveal key={s.titulo} delay={k * 110}>
+              <div className="mt-12 grid gap-8 lg:grid-cols-2 lg:grid-rows-2">
+                {servicos.map((s, k) => {
+                  const destaque = k === 0;
+                  return (
                     <Tag
-                      nome={`card de serviço ${k + 1} ("${s.titulo}")`}
-                      descricao="Cada cartão com foto, ícone, texto e botão."
-                      className="h-full"
+                      key={s.titulo}
+                      nome={destaque ? `card de serviço em destaque ("${s.titulo}")` : `card de serviço ${k + 1} ("${s.titulo}")`}
+                      descricao={
+                        destaque
+                          ? "O card maior, com foto no alto, título, texto e botão."
+                          : "Card menor: foto à esquerda e texto à direita (no celular, foto em cima)."
+                      }
+                      className={destaque ? "lg:row-span-2" : ""}
                     >
-                      <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-[var(--shadow-card)] transition-transform duration-300 hover:-translate-y-1.5">
-                        <div className="relative">
-                          <span className="absolute left-3 top-3 z-10 rounded-md bg-red-600 px-2 py-1 font-mono text-[11px] font-bold text-white shadow-lg">
-                            imagem do card
-                          </span>
-                          <img
-                            src={s.imagem}
-                            alt={s.alt}
-                            loading="lazy"
-                            width={1280}
-                            height={960}
-                            className="h-48 w-full object-cover"
-                          />
-                        </div>
+                      <article
+                        className={`flex h-full flex-col overflow-hidden rounded-2xl bg-card text-card-foreground shadow-[var(--shadow-card)] ${
+                          destaque ? "" : "sm:flex-row"
+                        }`}
+                      >
+                        <img
+                          src={s.imagem}
+                          alt=""
+                          loading="lazy"
+                          width={1200}
+                          height={675}
+                          className={
+                            destaque
+                              ? "h-60 w-full object-cover sm:h-72 lg:h-auto lg:min-h-72 lg:flex-1"
+                              : "h-48 w-full object-cover sm:h-auto sm:w-2/5"
+                          }
+                        />
                         <div className="flex flex-1 flex-col p-6">
-                          <div className="flex items-center gap-3">
-                            <s.icon className="text-secondary" size={28} aria-hidden />
-                            <span className="rounded-md bg-red-600 px-2 py-1 font-mono text-[11px] font-bold text-white">
-                              ícone
-                            </span>
-                          </div>
-                          <h3 className="mt-4 text-xl text-primary">{s.titulo}</h3>
+                          <h3 className={`text-primary text-balance ${destaque ? "text-2xl sm:text-3xl" : "text-xl"}`}>
+                            {s.titulo}
+                          </h3>
                           <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
                             {s.texto}
                           </p>
-                          <div className="relative mt-6">
-                            <span className="absolute -top-3 left-3 z-10 rounded-md bg-red-600 px-2 py-1 font-mono text-[11px] font-bold text-white shadow-lg">
-                              botão do card
+                          <Tag
+                            nome="botão do card"
+                            descricao="Abre o WhatsApp com uma mensagem própria deste serviço."
+                            className="mt-6 self-start"
+                          >
+                            <span className="inline-flex min-h-11 items-center gap-2 rounded-full bg-whatsapp px-5 py-3 text-sm font-accent text-whatsapp-foreground">
+                              <WhatsAppIcon size={16} />
+                              {s.cta}
                             </span>
-                            <a
-                              href={WHATSAPP_LINK}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex w-full justify-center rounded-full bg-secondary px-5 py-3 text-sm font-accent font-bold text-secondary-foreground transition-opacity hover:opacity-90"
-                            >
-                              Conheça nossos pacotes especiais
-                            </a>
-                          </div>
+                          </Tag>
                         </div>
                       </article>
                     </Tag>
-                  </Reveal>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </Tag>
         </section>
 
-        {/* Diferenciais */}
-        <section className="bg-background">
+        {/* Preços e diferenciais */}
+        <section id="precos" className="bg-background">
           <Tag
-            nome='seção "Diferenciais"'
-            descricao="A grade com os motivos para escolher a barbearia."
+            nome='seção "Preços"'
+            descricao="Os diferenciais à esquerda e a tabela de preços à direita."
             className="mx-auto max-w-6xl"
           >
-            <div className="px-4 py-20 sm:px-6">
-              <Reveal className="max-w-2xl">
-                <Tag nome="chamada pequena (eyebrow)" descricao="O rótulo da seção.">
-                  <p className="eyebrow">Diferenciais</p>
-                </Tag>
-                <Tag nome="título da seção (H2)" descricao="O título da seção." className="mt-3">
-                  <h2 className="text-3xl text-primary sm:text-4xl">
-                    Por que os clientes voltam à Cuba Libre
+            <div className="grid items-center gap-14 px-4 py-20 sm:px-6 lg:grid-cols-[1fr_1.05fr]">
+              <div>
+                <Tag nome="título da seção (H2)" descricao="O título da seção de preços.">
+                  <h2 className="text-4xl text-balance text-primary sm:text-5xl">
+                    Preço combinado, sem letra miúda
                   </h2>
                 </Tag>
-              </Reveal>
-              <div className="mt-14 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-                {diferenciais.map((d, k) => (
-                  <Reveal key={d.titulo} delay={k * 80}>
-                    <Tag
-                      nome={`diferencial ${k + 1}`}
-                      descricao={`"${d.titulo}" — ícone, título e texto, sem caixa em volta.`}
-                    >
-                      <d.icon className="text-secondary" size={32} aria-hidden />
-                      <h3 className="mt-4 text-lg text-primary">{d.titulo}</h3>
-                      <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">
-                        {d.texto}
-                      </p>
-                    </Tag>
-                  </Reveal>
-                ))}
+                <Tag nome="texto de apoio" descricao="O parágrafo abaixo do título." className="mt-5">
+                  <p className="max-w-md text-lg text-muted-foreground">
+                    O valor é fechado antes da primeira tesourada. Você paga isso mesmo, nem um real
+                    a mais.
+                  </p>
+                </Tag>
+                <ul className="mt-10 space-y-8">
+                  {diferenciais.map((d, k) => (
+                    <li key={d.titulo}>
+                      <Tag
+                        nome={`diferencial ${k + 1}`}
+                        descricao="Estrela vermelha como marcador, título e texto curto."
+                      >
+                        <div className="flex gap-4">
+                          <EstrelaSolitaria className="mt-0.5 h-5 w-5 shrink-0 self-start text-secondary" />
+                          <div>
+                            <h3 className="text-lg text-primary">{d.titulo}</h3>
+                            <p className="mt-1 max-w-sm text-sm leading-relaxed text-muted-foreground">
+                              {d.texto}
+                            </p>
+                          </div>
+                        </div>
+                      </Tag>
+                    </li>
+                  ))}
+                </ul>
+                <Tag nome="botão principal (CTA)" descricao="O botão verde que abre o WhatsApp." className="mt-10 inline-block">
+                  <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className={BOTAO_WHATSAPP}>
+                    <WhatsAppIcon size={18} />
+                    Agendar pelo WhatsApp
+                  </a>
+                </Tag>
               </div>
+
+              <Tag
+                nome="tabela de preços"
+                descricao="A placa de madeira com moldura de azulejo vermelho. Dentro: o emblema do almendrón (carro clássico de Havana), o título dourado, as linhas de preço com pontilhado e o horário no rodapé da placa."
+              >
+                <TabelaPrecos />
+              </Tag>
             </div>
           </Tag>
         </section>
 
         {/* Depoimentos */}
-        <section id="depoimentos" className="scroll-mt-20 bg-muted">
+        <section id="depoimentos" className="bg-muted">
           <Tag
             nome='seção "Depoimentos"'
-            descricao="O carrossel com avaliações de clientes (inclui estrelas, setas e bolinhas)."
+            descricao="As avaliações de clientes reais."
             className="mx-auto max-w-6xl"
           >
             <div className="px-4 py-20 sm:px-6">
-              <Reveal className="mb-10 text-center">
-                <Tag nome="chamada pequena (eyebrow)" descricao="O rótulo da seção." className="inline-block">
-                  <p className="eyebrow">Depoimentos</p>
-                </Tag>
-                <Tag nome="título da seção (H2)" descricao="O título da seção." className="mt-3">
-                  <h2 className="text-3xl text-primary sm:text-4xl">
+              <div className="mb-10 text-center">
+                <Tag nome="título da seção (H2)" descricao="O título da seção.">
+                  <h2 className="text-4xl text-balance text-primary sm:text-5xl">
                     Quem senta na cadeira, recomenda
                   </h2>
                 </Tag>
-              </Reveal>
-              <Reveal delay={100}>
                 <Tag
-                  nome="carrossel de depoimentos"
-                  descricao="O bloco que troca de depoimento — com estrelas de avaliação, setas de navegação e indicadores (bolinhas)."
+                  nome="nota do Google"
+                  descricao="As estrelas vermelhas com a nota e o total de avaliações; clicar abre a ficha no Google."
+                  className="mt-6 inline-block"
                 >
-                  <Depoimentos />
+                  <a
+                    href={MAPS_LINK}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-2"
+                  >
+                    <span className="flex gap-1.5 text-secondary" aria-hidden="true">
+                      {Array.from({ length: 5 }).map((_, k) => (
+                        <EstrelaSolitaria key={k} className="w-4" />
+                      ))}
+                    </span>
+                    <span className="font-display text-2xl leading-none text-primary">
+                      {NOTA_EXIBICAO}
+                    </span>
+                    <span className="text-sm text-muted-foreground underline underline-offset-4">
+                      de 5 · {AVALIACAO_TOTAL} avaliações no Google
+                    </span>
+                  </a>
                 </Tag>
-              </Reveal>
+              </div>
+              <Tag
+                nome="carrossel de depoimentos"
+                descricao="Os cartões de depoimento com estrelas; as setas e as bolinhas trocam a página (não troca sozinho)."
+              >
+                <Depoimentos />
+              </Tag>
             </div>
           </Tag>
         </section>
 
         {/* CTA final */}
-        <section className="surface-navy">
+        <section className="surface-navy relative overflow-hidden">
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 opacity-[0.08]" aria-hidden="true">
+            <MaleconHavana className="w-full" />
+          </div>
           <Tag
             nome='seção "CTA final"'
-            descricao="A última chamada para agendamento antes do rodapé."
-            className="mx-auto max-w-3xl"
+            descricao="A última chamada para agendar. O desenho apagado ao fundo é o skyline do Malecón de Havana."
+            className="relative z-10 mx-auto max-w-3xl"
           >
             <div className="px-4 py-20 text-center sm:px-6">
-              <Reveal>
-                <Tag nome="título da seção (H2)" descricao="A frase de impacto final.">
-                  <h2 className="text-3xl text-on-navy sm:text-4xl">
-                    O corte que você quer, executado com excelência
-                  </h2>
-                </Tag>
-                <Tag nome="texto de apoio" descricao="O parágrafo abaixo do título." className="mt-4">
-                  <p className="text-on-navy-muted">
-                    Combinamos o valor antes de começar — cortes a partir de R$50 — e só finalizamos
-                    quando você estiver satisfeito com o resultado. Sem surpresa, sem pressa.
-                  </p>
-                </Tag>
-                <div className="mt-8 flex flex-wrap items-center justify-center gap-6">
-                  <Tag nome="botão de ação (CTA)" descricao="O botão principal.">
-                    <a
-                      href={WHATSAPP_LINK}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block rounded-full bg-secondary px-7 py-3.5 font-accent font-bold text-secondary-foreground shadow-[var(--shadow-lift)] transition-transform hover:scale-[1.03]"
-                    >
-                      Agende pelo nosso site!
-                    </a>
-                  </Tag>
-                  <Tag nome="botão secundário" descricao="O botão de contorno com o telefone.">
-                    <a
-                      href={WHATSAPP_LINK}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block rounded-full border border-on-navy/40 px-7 py-3.5 font-accent font-semibold text-on-navy transition-colors hover:border-on-navy"
-                    >
-                      WhatsApp {WHATSAPP_EXIBICAO}
-                    </a>
-                  </Tag>
+              <Tag nome="bandeira de Cuba" descricao="O emblema pequeno acima do título." className="mb-6 inline-block">
+                <BandeiraCuba className="h-6 w-9 rounded-[2px] shadow-[var(--shadow-card)]" />
+              </Tag>
+              <Tag nome="título da seção (H2)" descricao="A frase de impacto final.">
+                <h2 className="text-4xl text-balance text-on-navy sm:text-5xl">
+                  Seu corte de respeito está a uma mensagem de distância
+                </h2>
+              </Tag>
+              <Tag nome="texto de apoio" descricao="O parágrafo abaixo do título." className="mt-5">
+                <p className="text-on-navy-muted">
+                  Combinamos o valor antes de começar — cortes a partir de R$50 — e só finalizamos
+                  quando você estiver satisfeito com o resultado. Sem surpresa, sem pressa.
+                </p>
+              </Tag>
+              <Tag nome="botão principal (CTA)" descricao="O botão verde que abre o WhatsApp." className="mt-8 inline-block">
+                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className={BOTAO_WHATSAPP}>
+                  <WhatsAppIcon size={18} />
+                  Agendar pelo WhatsApp
+                </a>
+              </Tag>
+              <Tag
+                nome="endereço e telefone"
+                descricao="Links para o mapa e para ligar, logo abaixo do botão."
+                className="mt-8"
+              >
+                <div className="flex flex-col items-center gap-1 text-sm text-on-navy-muted sm:flex-row sm:justify-center sm:gap-6">
+                  <a href={MAPS_LINK} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 py-2 underline underline-offset-4">
+                    <MapPin size={16} className="shrink-0 text-secondary" aria-hidden />
+                    {ENDERECO}
+                  </a>
+                  <a href={TELEFONE_LINK} className="inline-flex items-center gap-2 py-2 underline underline-offset-4">
+                    <Phone size={16} className="shrink-0 text-secondary" aria-hidden />
+                    Prefere ligar? {WHATSAPP_EXIBICAO}
+                  </a>
                 </div>
-              </Reveal>
+              </Tag>
             </div>
           </Tag>
         </section>
@@ -485,7 +528,7 @@ function Guia() {
 
       <Tag
         nome="rodapé (footer)"
-        descricao="A faixa final com contato, horários e colunas de informação."
+        descricao="A faixa final com a logo, os contatos (WhatsApp, telefone, e-mail, endereço, Instagram), os horários e o botão Agendar."
       >
         <Footer />
       </Tag>

@@ -1,8 +1,11 @@
 export const WHATSAPP_NUMERO = "5519981221852";
 export const WHATSAPP_EXIBICAO = "(19) 98122-1852";
-export const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(
+export const whatsappLink = (mensagem: string) =>
+  `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(mensagem)}`;
+export const WHATSAPP_LINK = whatsappLink(
   "Olá! Gostaria de agendar um horário na Barbearia Cuba Libre.",
-)}`;
+);
+export const TELEFONE_LINK = `tel:+${WHATSAPP_NUMERO}`;
 export const EMAIL = "barbeariacubalibre@yahoo.com.br";
 export const ENDERECO = "Rua Professor Luiz Rosa, 204-B, Campinas – SP";
 export const INSTAGRAM_USER = "@cubalivre_barbearia";

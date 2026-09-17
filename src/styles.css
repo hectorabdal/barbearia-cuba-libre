@@ -200,6 +200,20 @@
     font-family: var(--font-body);
   }
 
+  ::selection {
+    background-color: var(--secondary);
+    color: var(--on-navy);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+  }
+
+  :where(header, .surface-navy, .surface-wood, .surface-seam) :focus-visible {
+    outline-color: var(--gold);
+  }
+
   h1,
   h2,
   h3,
@@ -226,25 +240,6 @@
   color: var(--on-navy);
 }
 
-@utility pattern-diagonal {
-  background-image: repeating-linear-gradient(
-    135deg,
-    oklch(0.512 0.204 25.6 / 6%) 0px,
-    oklch(0.512 0.204 25.6 / 6%) 1px,
-    transparent 1px,
-    transparent 18px
-  );
-}
-
-@utility eyebrow {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--secondary);
-}
-
 @keyframes fade-up {
   from {
     opacity: 0;
@@ -256,7 +251,9 @@
   }
 }
 
-.reveal {
+/* Só esconde quando há JavaScript para revelar depois: sem ele (prévias de
+   link, robôs), o conteúdo aparece direto. */
+.js .reveal:not(.is-visible) {
   opacity: 0;
 }
 

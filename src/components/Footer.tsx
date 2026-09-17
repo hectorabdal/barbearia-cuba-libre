@@ -83,7 +83,7 @@ export function Footer() {
             href={WHATSAPP_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 inline-flex items-center gap-2 rounded-full border border-on-navy/40 px-5 py-2.5 text-sm font-semibold text-on-navy transition-colors hover:border-whatsapp hover:bg-whatsapp"
+            className="mt-6 inline-flex items-center gap-2 rounded-full border border-on-navy/40 px-5 py-2.5 text-sm font-semibold text-on-navy transition-[scale,color,background-color,border-color] duration-160 ease-out hover:border-whatsapp hover:bg-whatsapp active:scale-[0.97]"
           >
             <WhatsAppIcon size={16} />
             Agendar pelo WhatsApp

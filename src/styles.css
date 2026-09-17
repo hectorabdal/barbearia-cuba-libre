@@ -76,6 +76,14 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+/* Curva de movimento: começa rápido e freia no fim. Substitui a curva padrão
+   do Tailwind (fraca demais para resposta ao toque) e vale para a classe
+   `ease-out`. "static" garante que a variável exista também para quem usar
+   var(--ease-out) direto no CSS. */
+@theme static {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
 :root {
   --radius: 0.625rem;
   --font-display: "Alfa Slab One", ui-sans-serif, system-ui, sans-serif;

@@ -331,7 +331,6 @@ function Guia() {
                         <img
                           src={s.imagem}
                           alt=""
-                          loading="lazy"
                           width={1200}
                           height={675}
                           className={

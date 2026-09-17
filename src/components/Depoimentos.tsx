@@ -104,7 +104,7 @@ export function Depoimentos() {
           type="button"
           aria-label="Depoimentos anteriores"
           onClick={paginaAnterior}
-          className="grid h-11 w-11 place-items-center rounded-full border border-border text-primary transition-colors hover:border-secondary hover:text-secondary"
+          className="grid h-11 w-11 place-items-center rounded-full border border-border text-primary transition-[scale,color,background-color,border-color] duration-160 ease-out hover:border-secondary hover:text-secondary active:scale-[0.95]"
         >
           <ChevronLeft size={20} aria-hidden />
         </button>
@@ -132,7 +132,7 @@ export function Depoimentos() {
           type="button"
           aria-label="Próximos depoimentos"
           onClick={proximaPagina}
-          className="grid h-11 w-11 place-items-center rounded-full border border-border text-primary transition-colors hover:border-secondary hover:text-secondary"
+          className="grid h-11 w-11 place-items-center rounded-full border border-border text-primary transition-[scale,color,background-color,border-color] duration-160 ease-out hover:border-secondary hover:text-secondary active:scale-[0.95]"
         >
           <ChevronRight size={20} aria-hidden />
         </button>

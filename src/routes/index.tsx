@@ -34,7 +34,7 @@ import azulejoMarinho from "@/assets/padrao-azulejo-cubano-marinho-barbearia-cub
 const NOTA_EXIBICAO = String(AVALIACAO_NOTA).replace(".", ",");
 
 const BOTAO_WHATSAPP =
-  "inline-flex items-center justify-center gap-2 rounded-full bg-whatsapp px-7 py-3.5 font-accent text-whatsapp-foreground shadow-[var(--shadow-lift)] transition-transform hover:scale-[1.03] hover:bg-whatsapp-dark";
+  "inline-flex items-center justify-center gap-2 rounded-full bg-whatsapp px-7 py-3.5 font-accent text-whatsapp-foreground shadow-[var(--shadow-lift)] transition-[scale,color,background-color,border-color] duration-160 ease-out hover:scale-[1.03] hover:bg-whatsapp-dark active:scale-[0.97]";
 
 const titulo = "Barbearia Cuba Libre | Cortes e barba em Campinas";
 const descricao =
@@ -125,7 +125,7 @@ function Home() {
                 </a>
                 <a
                   href="#precos"
-                  className="rounded-full border border-on-navy/40 px-7 py-3.5 font-accent text-on-navy transition-colors hover:border-secondary"
+                  className="rounded-full border border-on-navy/40 px-7 py-3.5 font-accent text-on-navy transition-[scale,color,background-color,border-color] duration-160 ease-out hover:border-secondary active:scale-[0.97]"
                 >
                   Ver preços
                 </a>
@@ -254,7 +254,6 @@ function Home() {
                       <img
                         src={s.imagem}
                         alt={s.alt}
-                        loading="lazy"
                         width={1200}
                         height={675}
                         className={
@@ -274,7 +273,7 @@ function Home() {
                           href={whatsappLink(s.mensagem)}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 self-start rounded-full bg-whatsapp px-5 py-3 text-sm font-accent text-whatsapp-foreground transition-colors hover:bg-whatsapp-dark"
+                          className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 self-start rounded-full bg-whatsapp px-5 py-3 text-sm font-accent text-whatsapp-foreground transition-[scale,color,background-color,border-color] duration-160 ease-out hover:bg-whatsapp-dark active:scale-[0.97]"
                         >
                           <WhatsAppIcon size={16} />
                           {s.cta}

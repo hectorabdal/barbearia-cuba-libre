@@ -50,7 +50,7 @@ export function Navbar() {
               href={WHATSAPP_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-on-navy/40 px-4 py-2 text-sm font-semibold text-on-navy transition-colors hover:border-whatsapp hover:bg-whatsapp"
+              className="inline-flex items-center gap-2 rounded-full border border-on-navy/40 px-4 py-2 text-sm font-semibold text-on-navy transition-[scale,color,background-color,border-color] duration-160 ease-out hover:border-whatsapp hover:bg-whatsapp active:scale-[0.97]"
             >
               <WhatsAppIcon size={15} />
               Agendar
@@ -64,7 +64,7 @@ export function Navbar() {
           aria-expanded={open}
           aria-controls="menu-mobile"
           aria-label={open ? "Fechar menu" : "Abrir menu"}
-          className="rounded-md p-2.5 text-on-navy transition-colors hover:bg-on-navy/10 lg:hidden"
+          className="rounded-md p-2.5 text-on-navy transition-[scale,color,background-color,border-color] duration-160 ease-out hover:bg-on-navy/10 active:scale-[0.95] lg:hidden"
         >
           {open ? <X size={22} aria-hidden /> : <Menu size={22} aria-hidden />}
         </button>
@@ -89,7 +89,7 @@ export function Navbar() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setOpen(false)}
-              className="mt-4 flex items-center justify-center gap-2 rounded-full bg-whatsapp py-3 text-sm font-semibold text-whatsapp-foreground"
+              className="mt-4 flex items-center justify-center gap-2 rounded-full bg-whatsapp py-3 text-sm font-semibold text-whatsapp-foreground transition-[scale,color,background-color,border-color] duration-160 ease-out active:scale-[0.97]"
             >
               <WhatsAppIcon size={16} />
               Agendar pelo WhatsApp
